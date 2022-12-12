@@ -1,0 +1,27 @@
+.boxDel{
+    width: 100%;
+    max-width: 350px;
+    padding: 2em 1.5em;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.boxDel__title{
+    margin-bottom: 0.5em
+}
+.boxDel_p{
+    margin-bottom: 1em;
+}
+.boxDel__btn{
+    width: 100%;
+    padding: 0.8em;
+    color: white;
+    background-color: #555A88;
+    transition: filter 100ms ease;
+    font-size: 1rem;
+}
+.boxDel__btn:hover{
+    filter: brightness(1.2);
+}

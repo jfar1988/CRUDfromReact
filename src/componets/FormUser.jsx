@@ -1,51 +1,61 @@
-import React from 'react'
-import { useForm } from 'react-hook-form'
+import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import './styles/form.css'
 
-const FormUser = ({createNewUser}) => {
+const FormUser = ({ createNewUser, updateInfo, updateUserById,setUpdateInfo, setCloseForm }) => {
+    useEffect(() => {
+        reset(updateInfo)
+    }, [updateInfo])
+    
+  const { register, reset, handleSubmit } = useForm();
 
-const {register, reset, handleSubmit} = useForm()
-
-    const submit=(data)=>{
-        createNewUser(data)
-
-        reset({
-            email:"",
-            first_name:"",
-            last_name:"",
-            brithday:"",
-            password:""
-        }
-
-        )
+  const submit = (data) => {
+    if (updateInfo) {
+        //Update
+        updateUserById(updateInfo.id, data)
+        setUpdateInfo()
+    }else{
+        //Create
+        createNewUser(data);
     }
+    setCloseForm(true)
+    reset({
+      email: "",
+      first_name: "",
+      last_name: "",
+      brithday: "",
+      password: "",
+      birthday: ""
+    });
+  };
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
-        <h2>Creat</h2>
-        <div>
-            <label htmlFor="email">Email</label>
-            <input type="email" id="email" {...register("email")} />
-        </div>
-        <div>
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" {...register("password")}/>
-        </div>
-        <div>
-            <label htmlFor="first_name">First Name</label>
-            <input type="text" id="first_name" {...register("first_name")}/>
-        </div>
-        <div>
-            <label htmlFor="last_name">Last Name</label>
-            <input type="text" id="last_name" {...register("last_name")}/>
-        </div>
-        <div>
-            <label htmlFor="birthday">Birthday</label>
-            <input type="date" id="birthday" {...register("birthday")}/>
-        </div>
-        <button onClick={handleSubmit()}>Submit</button>
-
+    <form className="form" onSubmit={handleSubmit(submit)}>
+      <div onClick={submit} className="form__x">x</div>
+      <h2 className="form__tittle">{updateInfo ? 'Update User' : 'Create User'}</h2>
+      <div className="form__div">
+        <label className="form__label" htmlFor="email">Email</label>
+        <input className="form__input" type="email" id="email" {...register("email")} />
+      </div>
+      <div className="form__div">
+        <label className="form__label" htmlFor="password">Password</label>
+        <input className="form__input" type="password" id="password" {...register("password")} />
+      </div>
+      <div className="form__div">
+        <label className="form__label" htmlFor="first_name">First Name</label>
+        <input className="form__input" type="text" id="first_name" {...register("first_name")} />
+      </div>
+      <div className="form__div">
+        <label className="form__label" htmlFor="last_name">Last Name</label>
+        <input className="form__input" type="text" id="last_name" {...register("last_name")} />
+      </div>
+      <div className="form__div">
+        <label className="form__label" htmlFor="birthday">Birthday</label>
+        <input className="form__input" type="date" id="birthday" {...register("birthday")} />
+      </div>
+      <button className="form__btn">Submit</button>
     </form>
-  )
-}
+  );
+};
 
-export default FormUser
+export default FormUser;
